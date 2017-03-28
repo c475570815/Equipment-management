@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "维修工单";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>维修工单</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-table-min.js"></script>
+    <script src="~/Scripts/bootstrap-table-zh-CN.min.js"></script>
+    <link href="~/Scripts/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="~/Content/css-loader.css" rel="stylesheet" />
+    <script src="~/Scripts/MaintenanceForm_form.js"></script>
+</head>
+<body style="padding:10px">
+    <table id="table">
+        <thead>
+            <tr>
+                <th>申请编号</th>
+                <th>开始维修时间</th>
+                <th>故障</th>
+                <th>维修人员</th>
+                <th>是否完成</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+    </table>
+    <div class="loader loader-default is-active" id="load" data-text data-blink></div>
+
+    <div class="modal fade" id="infModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <center><h4 class="modal-title" id="myModalLabel">维修设备详情</h4></center>
+                </div>
+                <div class="modal-body" id="date">
+                    <h4 id="Mb_maintain_id">--</h4>
+                    <h4 id="Mb_applyid">--</h4>
+                    <h4 id="Mb_apply_people">--</h4>
+                    <h4 id="Mb_startapply_time">--</h4>
+                    <h4 id="Mb_pass">--</h4>
+                    <h4 id="Mb_pass_time">--</h4>
+                    <h4 id="Mb_allocationPerson">--</h4>
+                    <h4 id="Mb_name"></h4>
+                    <h4 id="Mb_end_time">--</h4>
+                    <h4 id="Mb_advice">--</h4>
+                </div>
+                <div class="modal-footer">
+                    <center> <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button></center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="modal fade" id="backModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <center><h4 class="modal-title" id="myModalLabel">维修设备详情</h4></center>
+                </div>
+                <div class="container">
+                    <div class="row clearfix">
+                        <div class="col-md-6 column">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="rd_Advice">维修建议</label>
+                                    <textarea class="form-control" rows="4" id="rd_Advice"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="rd_EndTime">结束时间</label>
+                                    <input type="date" class="form-control" id="rd_EndTime">
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-md-2 column">
+                                        <button type="button" class="btn  btn-primary" id="btnSubmit" onclick="Over_back()">提交</button>
+                                    </div>
+                                    <div class="col-md-2 column">
+                                        <button type="reset" class="btn btn-default">重置</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <center id="Message"> ...</center>
+                </div>
+                <div class="modal-footer">
+                    <center> <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button></center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+

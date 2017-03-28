@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>登录</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!--jquery.validate-->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <link href="~/Content/css-loader.css" rel="stylesheet" />
+    <link href="~/Content/login.css" rel="stylesheet" />
+    <script src="~/Scripts/Login.js"></script>
+ </head > 
+    <body > 
+        <div class="loader loader-default is-active" id="load" data-text data-blink></div>
+         <div class="container" > 
+            <div class="form row">
+                <h3 class="form-title" style="margin-bottom:4px;text-align:center;">设备管理系统</h3>
+                <form class="form-horizontal col-sm-offset-3 col-md-offset-3">
+                    <div class="col-sm-9 col-md-9">
+                        <div class="form-group">
+                            <i class="fa fa-user fa-lg"></i>
+                            <input id="e_ID" class="form-control required" type="text" placeholder="账户" name="e_ID" autofocus="autofocus" maxlength="20" />
+                        </div>
+                        <div class="form-group">
+                            <i class="fa fa-lock fa-lg"></i>
+                            <input id="u_Password" class="form-control required" type="password" placeholder="密码" name="u_Password" maxlength="8" />
+                        </div>
+                        <div class="form-group">
+                            <input id="submit" type="button" class="btn btn-success" value="登录" />
+                            <input id="clean" type="button" class="btn " style="margin-left: 100px;" value="清空" />
+                        </div>
+                    </div>
+                </form>
+            </div> 
+        </div > 
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <center id="Message"> ...</center>
+                    </div>
+                    <div class="modal-footer">
+                        <center> <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </body > 
+</html >

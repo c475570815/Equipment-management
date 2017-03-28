@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EquipmentModelStoreContainer" CdmEntityContainer="Equipment">
+    <EntitySetMapping Name="DecivesInfo">
+      <EntityTypeMapping TypeName="EquipmentModel.DecivesInfo">
+        <MappingFragment StoreEntitySet="DecivesInfo">
+          <ScalarProperty Name="di_EqId" ColumnName="di_EqId" />
+          <ScalarProperty Name="di_User" ColumnName="di_User" />
+          <ScalarProperty Name="di_Name" ColumnName="di_Name" />
+          <ScalarProperty Name="dt_ID" ColumnName="dt_ID" />
+          <ScalarProperty Name="di_Model" ColumnName="di_Model" />
+          <ScalarProperty Name="di_Price" ColumnName="di_Price" />
+          <ScalarProperty Name="di_ManuFacturers" ColumnName="di_ManuFacturers" />
+          <ScalarProperty Name="di_Position" ColumnName="di_Position" />
+          <ScalarProperty Name="di_ButTime" ColumnName="di_ButTime" />
+          <ScalarProperty Name="di_Warranty" ColumnName="di_Warranty" />
+          <ScalarProperty Name="di_Status" ColumnName="di_Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Department">
+      <EntityTypeMapping TypeName="EquipmentModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="d_ID" ColumnName="d_ID" />
+          <ScalarProperty Name="d_Name" ColumnName="d_Name" />
+          <ScalarProperty Name="d_SortIndex" ColumnName="d_SortIndex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DevicesTypes">
+      <EntityTypeMapping TypeName="EquipmentModel.DevicesTypes">
+        <MappingFragment StoreEntitySet="DevicesTypes">
+          <ScalarProperty Name="dt_ID" ColumnName="dt_ID" />
+          <ScalarProperty Name="dt_Name" ColumnName="dt_Name" />
+          <ScalarProperty Name="dt_Description" ColumnName="dt_Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="EquipmentModel.Employees">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="e_ID" ColumnName="e_ID" />
+          <ScalarProperty Name="e_Name" ColumnName="e_Name" />
+          <ScalarProperty Name="e_Gender" ColumnName="e_Gender" />
+          <ScalarProperty Name="e_Mobile" ColumnName="e_Mobile" />
+          <ScalarProperty Name="d_ID" ColumnName="d_ID" />
+          <ScalarProperty Name="e_SortIndex" ColumnName="e_SortIndex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RepairApply">
+      <EntityTypeMapping TypeName="EquipmentModel.RepairApply">
+        <MappingFragment StoreEntitySet="RepairApply">
+          <ScalarProperty Name="ra_ID" ColumnName="ra_ID" />
+          <ScalarProperty Name="e_ID" ColumnName="e_ID" />
+          <ScalarProperty Name="di_EqId" ColumnName="di_EqId" />
+          <ScalarProperty Name="ra_Time" ColumnName="ra_Time" />
+          <ScalarProperty Name="ra_Resion" ColumnName="ra_Resion" />
+          <ScalarProperty Name="ra_Approval" ColumnName="ra_Approval" />
+          <ScalarProperty Name="ra_AllocationPerson" ColumnName="ra_AllocationPerson" />
+          <ScalarProperty Name="ra_Status" ColumnName="ra_Status" />
+          <ScalarProperty Name="ra_ApprovalTime" ColumnName="ra_ApprovalTime" />
+          <ScalarProperty Name="d_ID" ColumnName="d_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RepairDetails">
+      <EntityTypeMapping TypeName="EquipmentModel.RepairDetails">
+        <MappingFragment StoreEntitySet="RepairDetails">
+          <ScalarProperty Name="rd_ID" ColumnName="rd_ID" />
+          <ScalarProperty Name="di_EqId" ColumnName="di_EqId" />
+          <ScalarProperty Name="rd_StartTime" ColumnName="rd_StartTime" />
+          <ScalarProperty Name="rd_EndTime" ColumnName="rd_EndTime" />
+          <ScalarProperty Name="ra_Resion" ColumnName="ra_Resion" />
+          <ScalarProperty Name="rd_Advice" ColumnName="rd_Advice" />
+          <ScalarProperty Name="e_ID" ColumnName="e_ID" />
+          <ScalarProperty Name="ra_ID" ColumnName="ra_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="EquipmentModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="u_ID" ColumnName="u_ID" />
+          <ScalarProperty Name="e_ID" ColumnName="e_ID" />
+          <ScalarProperty Name="u_Password" ColumnName="u_Password" />
+          <ScalarProperty Name="u_Type" ColumnName="u_Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

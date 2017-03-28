@@ -1,0 +1,253 @@
+﻿@{
+    Layout = null;
+    var user = HttpContext.Current.User as Equipment_manage.Models.Authen.MyUserDataPrincipal;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>设备维修管理系统</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/Content/animate.css" rel="stylesheet">
+    <link href="/Content/style.css" rel="stylesheet">
+</head>
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="nav-close">
+                <i class="fa fa-times-circle"></i>
+            </div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <span><img alt="image" class="img-circle" src="/img/profile_small.png" /></span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                    <span class="block m-t-xs">
+                                        <strong class="font-bold">
+                                            欢迎！ @HttpContext.Current.User.Identity.Name
+                                        </strong>
+                                    </span>
+                                </span>
+                            </a>
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">
+                                    @user.userdata.u_Type
+                                </strong>
+                                <a href="/login/CheckLoginOut">安全退出</a>
+                            </span>
+                        </div>
+                        <div class="logo-element">
+                            Logo
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">设备管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            @{
+                                if (HttpContext.Current.User.IsInRole("admin"))
+                                {
+                                    <li>
+                                        <a class="J_menuItem" href="/Equipment/Equipment"><span class="glyphicon glyphicon-align-justify"></span><span>设备查询</span></a>
+                                    </li>
+                                }
+                            }
+                            @{
+                                if (HttpContext.Current.User.IsInRole("admin,user"))
+                                {
+                                    <li>
+                                        <a class="J_menuItem" href="/Employee/employee"><span class="glyphicon glyphicon-align-justify"></span><span>员工编号</span></a>
+                                    </li>
+                                }
+                            }
+                            @{
+                                if (HttpContext.Current.User.IsInRole("user,admin"))
+                                {
+                                    <li>
+                                        <a class="J_menuItem" href="/UseEquipment/index"><span class="glyphicon glyphicon-align-justify"></span><span>个人设备</span></a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-bars"></i>
+                            <span class="nav-label">维修管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            @{
+                                if (HttpContext.Current.User.IsInRole("user,admin"))
+                                {
+                                    <li>
+                                        <a class="J_menuItem" href="/Apply/RepairApply"><span class="glyphicon glyphicon-align-justify"></span><span>维修申请</span></a>
+                                    </li>
+                                }
+                            }
+                            @{
+                                if (HttpContext.Current.User.IsInRole("downer,admin"))
+                                {
+                                    <li>
+                                        <a class="J_menuItem" href="/Maintenance/MaintenanceApply"><span class="glyphicon glyphicon-align-justify"></span><span>维修审批</span></a>
+                                    </li>
+                                }
+                            }
+                            @{
+                                if (HttpContext.Current.User.IsInRole("wowner,admin"))
+                                {
+                                    <li>
+                                        <a class="J_menuItem" href="/Maintenance/MaintenanceForm"><span class="glyphicon glyphicon-align-justify"></span><span>维修工单</span></a>
+                                    </li>
+                                }
+                            }
+                            @{
+                                if (HttpContext.Current.User.IsInRole("admin"))
+                                {
+                                    <li>
+                                        <a class="J_menuItem" href="/Maintenance/MaintenanceAppoint"><span class="glyphicon glyphicon-align-justify"></span><span>维修派人</span></a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle count-info" data-toggle="dropdown">
+                                <i class="fa fa-envelope"></i>
+                                <span class="label label-warning">2</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-messages">
+                                <li class="m-t-xs">
+                                    <div class="dropdown-messages-box">
+                                        <a href="#" class="pull-left"></a>
+                                        <div class="media-body">
+                                            <small class="pull-right">2小时前</small>
+                                            <strong>张三 </strong>维修申请!<br />
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="dropdown-messages-box">
+                                        <a href="#" class="pull-left"></a>
+                                        <div class="media-body">
+                                            <small class="pull-right">1小时前</small>
+                                            <strong>李四 </strong>维修申请!<br />
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <i class="fa fa-envelope"></i> <strong> 最新消息</strong>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle count-info" data-toggle="dropdown">
+                                <i class="fa fa-bell"></i><span class="label label-primary">8</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-alerts">
+                                <li>
+                                    <a href="#">
+                                        <div>
+                                            <i class="fa fa-envelope fa-fw"></i> 您有16条未读消息
+                                            <span class="pull-right text-muted small">4分钟前</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        <div>
+                                            <i class="fa fa-qq fa-fw"></i> 3条新回复
+                                            <span class="pull-right text-muted small">12分钟前</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a href="/Frist/index" class="J_menuItem">
+                                            <i class="fa fa-envelope"></i><strong>查看所有消息</strong>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="row content-tabs">
+                <button class="roll-nav roll-left J_tabLeft">
+                    <i class="fa fa-backward"></i>
+                </button>
+                <nav class="page-tabs J_menuTabs">
+                    <div class="page-tabs-content">
+                        <a href="javascript::" class="active J_menuTab" data-id="/Frist/index">
+                            首页@*<i class="fa fa-times-circle"></i>*@
+                        </a>
+                    </div>
+                </nav>
+                <button class="roll-nav roll-right J_tabRight">
+                    <i class="fa fa-forward"></i>
+                </button>
+                <div class="btn-group roll-nav roll-right">
+                    <button class="dropdown J_tabClose" data-toggle="dropdown">
+                        关闭操作<span class="caret"></span>
+                    </button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                        @*<li class="J_tabShowActive">
+                                <a>定位当前选项卡</a>
+                            </li>*@
+                        <li class="divider"></li>
+                        <li class="J_tabCloseAll">
+                            <a>关闭全部选项卡</a>
+                        </li>
+                        <li class="J_tabCloseOther">
+                            <a>关闭其他选项卡</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="/login/CheckLoginOut" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            </div>
+            <div class="row J_mainContent" id="content-main">
+                <iframe class="J_iframe" name="iframe0" style="width:100%;height:100%" src="/Frist/index" frameborder="0" data-id="/Frist/index" seamless></iframe>
+            </div>
+            <div class="footer">
+                <div class="pull-right">
+                    &copy; 2016-2017 <a href="#">DS工作室</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/Scripts/jquery.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/jquery.metisMenu.js"></script>
+    <script src="/Scripts/jquery.slimscroll.min.js"></script>
+    <script src="/Scripts/layer.min.js"></script>
+    <script src="/Scripts/hplus.js"></script>
+    <script type="text/javascript" src="/Scripts/contabs.js"></script>
+    <script src="/Scripts/pace.min.js"></script>
+</body>
+</html>

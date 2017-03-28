@@ -1,0 +1,144 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>登录</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-table-min.js"></script>
+    <script src="~/Scripts/bootstrap-table-zh-CN.min.js"></script>
+    <link href="~/Scripts/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="//cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+    <script src="~/Scripts/zh_CN.js"></script>
+    <script src="~/Scripts/Employee.js"></script>
+    </head>
+<body style="padding:10px">
+    <div id="toolbar" class="btn-group">
+        <form id="formSearch" class="form-horizontal" onkeydown="entersearch()" style="width:1000px;">
+            <label class="control-label col-sm-1" for="txt_search_id" style="width: 14%;">设备编号</label>
+            <div class="col-sm-3" style="width:18%;">
+                <input type="text" class="form-control" id="txt_search_id">
+            </div>
+            <div class="col-sm-3" style="width:26%;">
+                <input type="text" class="form-control" id="keyword" value="">
+            </div>
+            <div class="col-sm-4" style="text-align:left; width:10%;">
+                <button type="button" id="btn_query" class="btn btn-primary" onclick="query()">查询</button>
+            </div>
+        </form>
+        <div id="dateoperat">
+            <button id="btn_add" type="button" class="btn btn-default" onclick="Editform('add')">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+            </button>
+            <button id="btn_delete" type="button" class="btn btn-default" onclick="Deleteinf()">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>一键删除
+            </button>
+        </div>
+    </div>
+<table id="table" class="table table-condensed">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>电话</th>
+            <th>部门</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+</table>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">提示</h4>
+            </div>
+            <div class="modal-body">
+                <center id="Message"> ...</center>
+            </div>
+            <div class="modal-footer">
+                <center> <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button></center>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 增加 -->
+<div class="modal fade" id="Editform" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <center><h4 class="modal-title" id="myModalLabel">人员详情</h4></center>
+            </div>
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="col-md-6 column">
+                        <form role="form" id="form">
+                            <div class="form-group">
+                                <label for="ID">人员编号</label>
+                                <input type="text" class="form-control" id="ID" name="ID" style="width: 50% ;display: inline;">
+                            </div>
+                            <div class="form-group">
+                                <label for="Name">姓名</label>
+                                <input type="text" class="form-control" id="Name" name="Name" style="width: 50% ;display: inline;">
+                            </div>
+                            <div class="form-group" style="width:50%;">
+                                <label for=" Department">
+                                    所属部门
+                                </label>
+                                <select id="Department" class="form-control" title="--请选择--" style="width: 50% ;display: inline;"></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="Sex">性别</label>
+                                <select id="Sex" class="form-control" title="--请选择--" style="width: 50% ;display: inline;">
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="PhoneNumber">电话号码</label>
+                                <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" style="width: 50%; display: inline;">
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-2 column">
+                                    <button type="button" class="btn  btn-primary" id="btnSubmit" onclick="Editrecord()">提交</button>
+                                </div>
+                                <div class="col-md-2 column">
+                                    <button type="reset" class="btn btn-default">重置</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 信息删除确认 -->
+<div class="modal fade" id="delcfmModel">
+    <div class="modal-dialog">
+        <div class="modal-content message_align">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">提示信息</h4>
+            </div>
+            <div class="modal-body">
+                <center><h4>所有和此人员相关的设备信息都将被清除,您确认要删除吗？</h4></center>
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <a onclick="Delete(del_id)" class="btn btn-success" data-dismiss="modal">确定</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </center>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div> 
+</body>
+</html>

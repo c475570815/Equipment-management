@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EquipmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DecivesInfo">
+          <Key>
+            <PropertyRef Name="di_EqId" />
+          </Key>
+          <Property Name="di_EqId" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="di_User" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="di_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dt_ID" Type="int" Nullable="false" />
+          <Property Name="di_Model" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="di_Price" Type="float" Nullable="false" />
+          <Property Name="di_ManuFacturers" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="di_Position" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="di_ButTime" Type="datetime" Nullable="false" />
+          <Property Name="di_Warranty" Type="datetime" Nullable="false" />
+          <Property Name="di_Status" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="d_ID" />
+          </Key>
+          <Property Name="d_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="d_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="d_SortIndex" Type="int" />
+        </EntityType>
+        <EntityType Name="DevicesTypes">
+          <Key>
+            <PropertyRef Name="dt_ID" />
+          </Key>
+          <Property Name="dt_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dt_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dt_Description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="e_ID" />
+          </Key>
+          <Property Name="e_ID" Type="int" Nullable="false" />
+          <Property Name="e_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="e_Gender" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="e_Mobile" Type="varchar" MaxLength="11" />
+          <Property Name="d_ID" Type="int" Nullable="false" />
+          <Property Name="e_SortIndex" Type="int" />
+        </EntityType>
+        <EntityType Name="RepairApply">
+          <Key>
+            <PropertyRef Name="ra_ID" />
+          </Key>
+          <Property Name="ra_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="e_ID" Type="int" Nullable="false" />
+          <Property Name="di_EqId" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ra_Time" Type="datetime" />
+          <Property Name="ra_Resion" Type="text" Nullable="false" />
+          <Property Name="ra_Approval" Type="int" />
+          <Property Name="ra_AllocationPerson" Type="int" />
+          <Property Name="ra_Status" Type="varchar" MaxLength="6" />
+          <Property Name="ra_ApprovalTime" Type="datetime" />
+          <Property Name="d_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RepairDetails">
+          <Key>
+            <PropertyRef Name="rd_ID" />
+          </Key>
+          <Property Name="rd_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="di_EqId" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="rd_StartTime" Type="datetime" Nullable="false" />
+          <Property Name="rd_EndTime" Type="datetime" />
+          <Property Name="ra_Resion" Type="text" Nullable="false" />
+          <Property Name="rd_Advice" Type="varchar" MaxLength="50" />
+          <Property Name="e_ID" Type="int" Nullable="false" />
+          <Property Name="ra_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="u_ID" />
+          </Key>
+          <Property Name="u_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="e_ID" Type="int" Nullable="false" />
+          <Property Name="u_Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="u_Type" Type="text" />
+        </EntityType>
+        <Association Name="FK_DecivesInfo_DevicesTypes">
+          <End Role="DevicesTypes" Type="Self.DevicesTypes" Multiplicity="1" />
+          <End Role="DecivesInfo" Type="Self.DecivesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DevicesTypes">
+              <PropertyRef Name="dt_ID" />
+            </Principal>
+            <Dependent Role="DecivesInfo">
+              <PropertyRef Name="dt_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="d_ID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="d_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApply_DecivesInfo">
+          <End Role="DecivesInfo" Type="Self.DecivesInfo" Multiplicity="1" />
+          <End Role="RepairApply" Type="Self.RepairApply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DecivesInfo">
+              <PropertyRef Name="di_EqId" />
+            </Principal>
+            <Dependent Role="RepairApply">
+              <PropertyRef Name="di_EqId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApply_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="RepairApply" Type="Self.RepairApply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="e_ID" />
+            </Principal>
+            <Dependent Role="RepairApply">
+              <PropertyRef Name="e_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairDetails_DecivesInfo">
+          <End Role="DecivesInfo" Type="Self.DecivesInfo" Multiplicity="1" />
+          <End Role="RepairDetails" Type="Self.RepairDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DecivesInfo">
+              <PropertyRef Name="di_EqId" />
+            </Principal>
+            <Dependent Role="RepairDetails">
+              <PropertyRef Name="di_EqId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairDetails_RepairApply">
+          <End Role="RepairApply" Type="Self.RepairApply" Multiplicity="0..1" />
+          <End Role="RepairDetails" Type="Self.RepairDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RepairApply">
+              <PropertyRef Name="ra_ID" />
+            </Principal>
+            <Dependent Role="RepairDetails">
+              <PropertyRef Name="ra_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EquipmentModelStoreContainer">
+          <EntitySet Name="DecivesInfo" EntityType="Self.DecivesInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DevicesTypes" EntityType="Self.DevicesTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepairApply" EntityType="Self.RepairApply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepairDetails" EntityType="Self.RepairDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DecivesInfo_DevicesTypes" Association="Self.FK_DecivesInfo_DevicesTypes">
+            <End Role="DevicesTypes" EntitySet="DevicesTypes" />
+            <End Role="DecivesInfo" EntitySet="DecivesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Department" Association="Self.FK_Employees_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApply_DecivesInfo" Association="Self.FK_RepairApply_DecivesInfo">
+            <End Role="DecivesInfo" EntitySet="DecivesInfo" />
+            <End Role="RepairApply" EntitySet="RepairApply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApply_Employees" Association="Self.FK_RepairApply_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="RepairApply" EntitySet="RepairApply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairDetails_DecivesInfo" Association="Self.FK_RepairDetails_DecivesInfo">
+            <End Role="DecivesInfo" EntitySet="DecivesInfo" />
+            <End Role="RepairDetails" EntitySet="RepairDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairDetails_RepairApply" Association="Self.FK_RepairDetails_RepairApply">
+            <End Role="RepairApply" EntitySet="RepairApply" />
+            <End Role="RepairDetails" EntitySet="RepairDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EquipmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DecivesInfo">
+          <Key>
+            <PropertyRef Name="di_EqId" />
+          </Key>
+          <Property Name="di_EqId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="di_User" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="di_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dt_ID" Type="Int32" Nullable="false" />
+          <Property Name="di_Model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="di_Price" Type="Double" Nullable="false" />
+          <Property Name="di_ManuFacturers" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="di_Position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="di_ButTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="di_Warranty" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="di_Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="d_ID" />
+          </Key>
+          <Property Name="d_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="d_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="d_SortIndex" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DevicesTypes">
+          <Key>
+            <PropertyRef Name="dt_ID" />
+          </Key>
+          <Property Name="dt_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dt_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dt_Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="e_ID" />
+          </Key>
+          <Property Name="e_ID" Type="Int32" Nullable="false" />
+          <Property Name="e_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="e_Gender" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="e_Mobile" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="d_ID" Type="Int32" Nullable="false" />
+          <Property Name="e_SortIndex" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RepairApply">
+          <Key>
+            <PropertyRef Name="ra_ID" />
+          </Key>
+          <Property Name="ra_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="e_ID" Type="Int32" Nullable="false" />
+          <Property Name="di_EqId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ra_Time" Type="DateTime" Precision="3" />
+          <Property Name="ra_Resion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ra_Approval" Type="Int32" />
+          <Property Name="ra_AllocationPerson" Type="Int32" />
+          <Property Name="ra_Status" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="ra_ApprovalTime" Type="DateTime" Precision="3" />
+          <Property Name="d_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RepairDetails">
+          <Key>
+            <PropertyRef Name="rd_ID" />
+          </Key>
+          <Property Name="rd_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="di_EqId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rd_StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="rd_EndTime" Type="DateTime" Precision="3" />
+          <Property Name="ra_Resion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rd_Advice" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="e_ID" Type="Int32" Nullable="false" />
+          <Property Name="ra_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="u_ID" />
+          </Key>
+          <Property Name="u_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="e_ID" Type="Int32" Nullable="false" />
+          <Property Name="u_Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_DecivesInfo_DevicesTypes">
+          <End Role="DevicesTypes" Type="Self.DevicesTypes" Multiplicity="1" />
+          <End Role="DecivesInfo" Type="Self.DecivesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DevicesTypes">
+              <PropertyRef Name="dt_ID" />
+            </Principal>
+            <Dependent Role="DecivesInfo">
+              <PropertyRef Name="dt_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApply_DecivesInfo">
+          <End Role="DecivesInfo" Type="Self.DecivesInfo" Multiplicity="1" />
+          <End Role="RepairApply" Type="Self.RepairApply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DecivesInfo">
+              <PropertyRef Name="di_EqId" />
+            </Principal>
+            <Dependent Role="RepairApply">
+              <PropertyRef Name="di_EqId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairDetails_DecivesInfo">
+          <End Role="DecivesInfo" Type="Self.DecivesInfo" Multiplicity="1" />
+          <End Role="RepairDetails" Type="Self.RepairDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DecivesInfo">
+              <PropertyRef Name="di_EqId" />
+            </Principal>
+            <Dependent Role="RepairDetails">
+              <PropertyRef Name="di_EqId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="d_ID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="d_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApply_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="RepairApply" Type="Self.RepairApply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="e_ID" />
+            </Principal>
+            <Dependent Role="RepairApply">
+              <PropertyRef Name="e_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairDetails_RepairApply">
+          <End Role="RepairApply" Type="Self.RepairApply" Multiplicity="0..1" />
+          <End Role="RepairDetails" Type="Self.RepairDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RepairApply">
+              <PropertyRef Name="ra_ID" />
+            </Principal>
+            <Dependent Role="RepairDetails">
+              <PropertyRef Name="ra_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Equipment" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DecivesInfo" EntityType="Self.DecivesInfo" />
+          <EntitySet Name="Department" EntityType="Self.Department" />
+          <EntitySet Name="DevicesTypes" EntityType="Self.DevicesTypes" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="RepairApply" EntityType="Self.RepairApply" />
+          <EntitySet Name="RepairDetails" EntityType="Self.RepairDetails" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_DecivesInfo_DevicesTypes" Association="Self.FK_DecivesInfo_DevicesTypes">
+            <End Role="DevicesTypes" EntitySet="DevicesTypes" />
+            <End Role="DecivesInfo" EntitySet="DecivesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApply_DecivesInfo" Association="Self.FK_RepairApply_DecivesInfo">
+            <End Role="DecivesInfo" EntitySet="DecivesInfo" />
+            <End Role="RepairApply" EntitySet="RepairApply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairDetails_DecivesInfo" Association="Self.FK_RepairDetails_DecivesInfo">
+            <End Role="DecivesInfo" EntitySet="DecivesInfo" />
+            <End Role="RepairDetails" EntitySet="RepairDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Department" Association="Self.FK_Employees_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApply_Employees" Association="Self.FK_RepairApply_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="RepairApply" EntitySet="RepairApply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairDetails_RepairApply" Association="Self.FK_RepairDetails_RepairApply">
+            <End Role="RepairApply" EntitySet="RepairApply" />
+            <End Role="RepairDetails" EntitySet="RepairDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EquipmentModelStoreContainer" CdmEntityContainer="Equipment">
+          <EntitySetMapping Name="DecivesInfo">
+            <EntityTypeMapping TypeName="EquipmentModel.DecivesInfo">
+              <MappingFragment StoreEntitySet="DecivesInfo">
+                <ScalarProperty Name="di_EqId" ColumnName="di_EqId" />
+                <ScalarProperty Name="di_User" ColumnName="di_User" />
+                <ScalarProperty Name="di_Name" ColumnName="di_Name" />
+                <ScalarProperty Name="dt_ID" ColumnName="dt_ID" />
+                <ScalarProperty Name="di_Model" ColumnName="di_Model" />
+                <ScalarProperty Name="di_Price" ColumnName="di_Price" />
+                <ScalarProperty Name="di_ManuFacturers" ColumnName="di_ManuFacturers" />
+                <ScalarProperty Name="di_Position" ColumnName="di_Position" />
+                <ScalarProperty Name="di_ButTime" ColumnName="di_ButTime" />
+                <ScalarProperty Name="di_Warranty" ColumnName="di_Warranty" />
+                <ScalarProperty Name="di_Status" ColumnName="di_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="EquipmentModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="d_ID" ColumnName="d_ID" />
+                <ScalarProperty Name="d_Name" ColumnName="d_Name" />
+                <ScalarProperty Name="d_SortIndex" ColumnName="d_SortIndex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DevicesTypes">
+            <EntityTypeMapping TypeName="EquipmentModel.DevicesTypes">
+              <MappingFragment StoreEntitySet="DevicesTypes">
+                <ScalarProperty Name="dt_ID" ColumnName="dt_ID" />
+                <ScalarProperty Name="dt_Name" ColumnName="dt_Name" />
+                <ScalarProperty Name="dt_Description" ColumnName="dt_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="EquipmentModel.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="e_ID" ColumnName="e_ID" />
+                <ScalarProperty Name="e_Name" ColumnName="e_Name" />
+                <ScalarProperty Name="e_Gender" ColumnName="e_Gender" />
+                <ScalarProperty Name="e_Mobile" ColumnName="e_Mobile" />
+                <ScalarProperty Name="d_ID" ColumnName="d_ID" />
+                <ScalarProperty Name="e_SortIndex" ColumnName="e_SortIndex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepairApply">
+            <EntityTypeMapping TypeName="EquipmentModel.RepairApply">
+              <MappingFragment StoreEntitySet="RepairApply">
+                <ScalarProperty Name="ra_ID" ColumnName="ra_ID" />
+                <ScalarProperty Name="e_ID" ColumnName="e_ID" />
+                <ScalarProperty Name="di_EqId" ColumnName="di_EqId" />
+                <ScalarProperty Name="ra_Time" ColumnName="ra_Time" />
+                <ScalarProperty Name="ra_Resion" ColumnName="ra_Resion" />
+                <ScalarProperty Name="ra_Approval" ColumnName="ra_Approval" />
+                <ScalarProperty Name="ra_AllocationPerson" ColumnName="ra_AllocationPerson" />
+                <ScalarProperty Name="ra_Status" ColumnName="ra_Status" />
+                <ScalarProperty Name="ra_ApprovalTime" ColumnName="ra_ApprovalTime" />
+                <ScalarProperty Name="d_ID" ColumnName="d_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepairDetails">
+            <EntityTypeMapping TypeName="EquipmentModel.RepairDetails">
+              <MappingFragment StoreEntitySet="RepairDetails">
+                <ScalarProperty Name="rd_ID" ColumnName="rd_ID" />
+                <ScalarProperty Name="di_EqId" ColumnName="di_EqId" />
+                <ScalarProperty Name="rd_StartTime" ColumnName="rd_StartTime" />
+                <ScalarProperty Name="rd_EndTime" ColumnName="rd_EndTime" />
+                <ScalarProperty Name="ra_Resion" ColumnName="ra_Resion" />
+                <ScalarProperty Name="rd_Advice" ColumnName="rd_Advice" />
+                <ScalarProperty Name="e_ID" ColumnName="e_ID" />
+                <ScalarProperty Name="ra_ID" ColumnName="ra_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="EquipmentModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="u_ID" ColumnName="u_ID" />
+                <ScalarProperty Name="e_ID" ColumnName="e_ID" />
+                <ScalarProperty Name="u_Password" ColumnName="u_Password" />
+                <ScalarProperty Name="u_Type" ColumnName="u_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
